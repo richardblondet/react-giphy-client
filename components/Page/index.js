@@ -1,4 +1,4 @@
-import React, { Component }  from 'react'
+import { Component }  from 'react'
 import Head from './head'
 
 export default class Page extends Component {
