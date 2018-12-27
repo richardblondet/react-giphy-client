@@ -1,3 +1,9 @@
+import Page from '../components/Page'
+
 export default () => {
-	return <div>Hello World</div>
+	return (
+		<Page>
+			<div>Hello World</div>
+		</Page>
+	)
 }
