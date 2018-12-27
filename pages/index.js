@@ -1,5 +1,10 @@
 import Page from '../components/Page'
 import SearchBar from '../components/Search'
+import Gifs from '../components/Gifs'
+
+import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
+// console.log( PLACEHOLDER_GIFS );
+
 
 export default class Index extends React.Component {
 	
@@ -7,7 +12,7 @@ export default class Index extends React.Component {
         super();
 
         this.state = {
-            gifs: []
+            gifs: PLACEHOLDER_GIFS
         }
     }
 
@@ -19,6 +24,7 @@ export default class Index extends React.Component {
 		return (
 			<Page>
 				<SearchBar handleTextQueryChange={ this.gitfSearchHandler } />
+				<Gifs gifs={ this.state.gifs } />
 			</Page>
 		)
 	}
