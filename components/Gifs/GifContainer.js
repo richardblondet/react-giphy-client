@@ -29,14 +29,11 @@ export const GiftListEmpty = () => {
 export const GiftList = ( props ) => {
 	return (
 		<React.Fragment>
-			<ul className="rgc-gifs_list">{ props.children }</ul>
+			<div className="rgc-gifs_list">{ props.children }</div>
 			<style jsx>{`
 				.rgc-gifs_list {
-					list-style: none;
-				    padding: 20px 0;
-				    margin: 0 auto;
-				    text-align: center;
-				    width: 100%;
+					display: flex;
+					padding: 1em .5em;
 				}
 			`}</style>
 		</React.Fragment>

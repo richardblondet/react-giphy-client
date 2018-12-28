@@ -7,7 +7,6 @@ import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
 
 
 export default class Index extends React.Component {
-	
 	constructor() {
         super();
 

@@ -1,29 +1,22 @@
 export default ( props ) => {
+	const gif_aspect_ratio = ( width, height) => {
+		return width/height;
+	}
+
 	return (
 		<React.Fragment>
-			<li className="rgc-gif_item">
-				<a>
-					<img src={ props.gif.images.fixed_width_still.url } />
-				</a>
-			</li>
-			<style jxs>{`
+				<div className="rgc-gif_item">
+					<img src={ props.gif.images.downsized_still.url } />
+				</div>
+			<style jxs="true">{`
 				.rgc-gif_item {
-					display: inline-block;
-				    margin: 10px 5px 0 5px;
-				    vertical-align: top;
-				    height: 250px;
+					flex: ${ gif_aspect_ratio( props.gif.images.downsized_still.width, props.gif.images.downsized_still.height ) };
+					margin: .5em;
 				}
-				.rgc-gif_item > a {
-					border: none;
-				    outline: none;
-				    display: block;
-				    position: relative;
-				}
-				.rgc-gif_item > a img {
-					border: none;
-					outline: none;
-					display: block;
-					position: relative;
+				.rgc-gif_item img {
+					width: 100%;
+					height: auto;
+					vertical-align: middle;
 				}
 			`}</style>
 		</React.Fragment>
