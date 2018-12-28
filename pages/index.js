@@ -17,7 +17,7 @@ export default class Index extends React.Component {
     }
 
     gitfSearchHandler = (  text  ) => {
-    	console.log( text  );
+    	console.log( text );
     }
 
 	render() {
