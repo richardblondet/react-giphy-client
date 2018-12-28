@@ -7,10 +7,12 @@ export default class Gifts extends React.Component {
 	}
 
 	render() {
+		const { showing } = this.props
+
 		const GIFS = this.props.gifs && this.props.gifs.map(( image ) => {
 			return <GifImage key={ image.id } gif={ image } />
 		});
 
-		return GIFS && GIFS.length ? <GiftList>{ GIFS }</GiftList> : <GiftListEmpty />
+		return GIFS && GIFS.length ? <GiftList showing={ showing }>{ GIFS }</GiftList> : <GiftListEmpty />
 	}
 }

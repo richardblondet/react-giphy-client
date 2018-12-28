@@ -3,29 +3,46 @@ import Logo from '../components/Logo'
 import Container from '../components/Container'
 import SearchBar from '../components/Search'
 import Gifs from '../components/Gifs'
+import GiphyService, { API_KEY } from '../config/GiphyService'
 
 import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
-// console.log( PLACEHOLDER_GIFS );
 
+const Giphy = new GiphyService( API_KEY );
 
 export default class Index extends React.Component {
+	
 	constructor() {
+        
         super();
 
         this.state = {
-            gifs: PLACEHOLDER_GIFS,
-            isSearching: false
+            gifs: [],
+            isSearching: false,
+            isLoaded: false,
+            showing: ''
         }
+
     }
 
-    gitfSearchHandler = (  text  ) => {
-    	console.log( text );
-    	if( text.length > 1 ) {
-    		this.setState({
-    			isSearching: true
-    		})
-    	}
+    componentDidMount() {
+    	this.gifTrendingHandler()
     }
+    
+    gifTrendingHandler() {
+    	
+    	Giphy.getTrendindGifs( 6 )
+    		.then( result => this.setState({gifs: result.data, showing: 'Treding'}) )
+    		.catch( error => console.log( error ))
+
+    }
+    gifSearchHandler = (  text  ) => {
+    	
+    	Giphy.searchGifs( text )
+    		.then( result => this.setState({gifs: result.data, showing: 'Search Results'}) )
+    		.catch( error => console.log( error ))
+
+    }
+    
 
 	render() {
 		return (
@@ -34,10 +51,10 @@ export default class Index extends React.Component {
 					<Logo />
 				</Container>
 				<Container width="480px">
-					<SearchBar handleTextQueryChange={ this.gitfSearchHandler } />
+					<SearchBar handleTextQueryChange={ this.gifSearchHandler }  />
 				</Container>
 				<Container width="70%" pt="1em">
-					<Gifs gifs={ this.state.gifs } />
+					<Gifs gifs={ this.state.gifs } showing={ this.state.showing } />
 				</Container>
 			</Page>
 		)

@@ -22,7 +22,7 @@ export default class SearchBar extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <SearchInput placeholder="Enter text to search for gifs!" onChange={ this.handleOnChangeEvent } isLoading={ this.state.textquery.length > 1 } />
+                <SearchInput placeholder="Search the GIPHY database" onChange={ this.handleOnChangeEvent } loading={ this.state.textquery.length > 1 ? 'true':undefined } />
             </React.Fragment>
         );
     }

@@ -1,11 +1,12 @@
 export default ( props ) => {
-	const gif_aspect_ratio = ( width, height) => {
-		return width/height;
-	}
+	const { width, height, url } = props.gif.images.downsized_still;
 
 	return (
-		<div className="rgc-gif_item" style={{ flex: gif_aspect_ratio( props.gif.images.downsized_still.width, props.gif.images.downsized_still.height ) }}>
-			<img src={ props.gif.images.downsized_still.url } />
+		<div className="rgc-gif_item">
+			<img src={ url } />
 		</div>
 	)
 }
+// style={{ flex: gif_aspect_ratio( props.gif.images.downsized_still.width, props.gif.images.downsized_still.height ) }}
+// style={{ backgroundImage: `url( ${ props.gif.images.downsized_still.url } )` }}
+// style={{ width: `${ width }px`, height: `${ height }px` }}

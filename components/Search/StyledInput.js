@@ -4,7 +4,7 @@ import { PRIMARY_BLUE, LIGHT_GREY, SECONDARY_GREY } from "../../config/colors"
 export default ( props ) => {
 	return (
 		<div className="rgc-input-wrapper">
-	 		<input className="rgc-input" {...props} />
+	 		<input className="rgc-input" { ...props } />
 	 		<div className="rgc-icon-wrapper">
 	 			<FiSearch className="rgc-icon icon--static" />
 	 			<div className="rgc-loading-animation"></div>
@@ -38,12 +38,12 @@ export default ( props ) => {
     				text-align: center;
 				}
 				:global( .rgc-icon ) {
-					display: ${ props.isLoading ? 'none' : 'inline-block' };
+					display: ${ props.loading ? 'none' : 'inline-block' };
 					position: relative;
 					vertical-align: bottom;
 				}
 				.rgc-loading-animation {
-					display: ${ props.isLoading ? 'inline-block' : 'none' };
+					display: ${ props.loading ? 'inline-block' : 'none' };
 					width: 58px;
 					height: 58px;
 				}

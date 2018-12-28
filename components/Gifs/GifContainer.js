@@ -1,3 +1,4 @@
+import { PRIMARY_BLUE, LIGHT_GREY, SECONDARY_GREY } from "../../config/colors"
 /**
  * Custom component message for no gifs
  * @return {object}
@@ -29,14 +30,24 @@ export const GiftListEmpty = () => {
 export const GiftList = ( props ) => {
 	return (
 		<React.Fragment>
-			<div className="rgc-gifs_list">{ props.children }</div>
+			<div className="rgc-gifs_list--text--status">{ props.showing && props.showing }</div>
+			<div className="rgc-gifs_list">
+				{ props.children }
+			</div>
 			<style jsx>{`
+				.rgc-gifs_list--text--status {
+					padding: 10px;
+					font-weight: 600;
+					color: ${ SECONDARY_GREY };
+				}
 				.rgc-gifs_list {
-					display: flex;
-					padding: 1em .5em;
+					column-count: 3;
+					column-gap: 1em;
 				}
 				:global( .rgc-gif_item ) {
-					margin: .5em .5em 1em .5em;
+					display: inline-block;
+				    margin: 0 0 1em;
+				    width: 100%;
 				}
 				:global( .rgc-gif_item img ) {
 					width: 100%;
