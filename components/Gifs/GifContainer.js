@@ -35,6 +35,14 @@ export const GiftList = ( props ) => {
 					display: flex;
 					padding: 1em .5em;
 				}
+				:global( .rgc-gif_item ) {
+					margin: .5em .5em 1em .5em;
+				}
+				:global( .rgc-gif_item img ) {
+					width: 100%;
+					height: auto;
+					vertical-align: middle;
+				}
 			`}</style>
 		</React.Fragment>
 	)
