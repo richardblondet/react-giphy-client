@@ -9,6 +9,7 @@ export default ( props ) => {
 				  	padding-left: 15px;
 				  	margin-right: auto;
 				  	margin-left: auto;
+				  	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 				}
 
 				// Small devices (landscape phones, 576px and up)

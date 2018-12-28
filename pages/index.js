@@ -1,4 +1,5 @@
 import Page from '../components/Page'
+import Logo from '../components/Logo'
 import Container from '../components/Container'
 import SearchBar from '../components/Search'
 import Gifs from '../components/Gifs'
@@ -12,18 +13,27 @@ export default class Index extends React.Component {
         super();
 
         this.state = {
-            gifs: PLACEHOLDER_GIFS
+            gifs: PLACEHOLDER_GIFS,
+            isSearching: false
         }
     }
 
     gitfSearchHandler = (  text  ) => {
     	console.log( text );
+    	if( text.length > 1 ) {
+    		this.setState({
+    			isSearching: true
+    		})
+    	}
     }
 
 	render() {
 		return (
 			<Page>
-				<Container width="480px" pt="4em">
+				<Container pt={ this.state.isSearching ? '1em': '3em' }>
+					<Logo />
+				</Container>
+				<Container width="480px">
 					<SearchBar handleTextQueryChange={ this.gitfSearchHandler } />
 				</Container>
 				<Container width="70%" pt="1em">

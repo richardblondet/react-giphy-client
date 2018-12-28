@@ -11,7 +11,6 @@ export default class Gifts extends React.Component {
 			return <GifImage key={ image.id } gif={ image } />
 		});
 
-
 		return GIFS && GIFS.length ? <GiftList>{ GIFS }</GiftList> : <GiftListEmpty />
 	}
 }

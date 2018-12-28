@@ -32,7 +32,7 @@ export default ( props ) => {
 				    font-size: 30px;
 				    top: 0;
 				    right: 0;
-					color: ${PRIMARY_BLUE};
+					color: ${ PRIMARY_BLUE };
 					width: 58px;
     				height: 58px;
     				text-align: center;
