@@ -7,7 +7,7 @@ export default ( props ) => {
 	 		<input className="rgc-input" {...props} />
 	 		<div className="rgc-icon-wrapper">
 	 			<FiSearch className="rgc-icon icon--static" />
-	 			<div className="lds-dual-ring"></div>
+	 			<div className="rgc-loading-animation"></div>
 	 		</div>
 		 	<style jsx>{`
 		 		.rgc-input-wrapper {
@@ -42,12 +42,12 @@ export default ( props ) => {
 					position: relative;
 					vertical-align: bottom;
 				}
-				.lds-dual-ring {
+				.rgc-loading-animation {
 					display: ${ props.isLoading ? 'inline-block' : 'none' };
 					width: 58px;
 					height: 58px;
 				}
-				.lds-dual-ring:after {
+				.rgc-loading-animation:after {
 					content: " ";
 					display: block;
 					width: 30px;
@@ -56,11 +56,11 @@ export default ( props ) => {
 					border-radius: 50%;
 					border: 3px solid ${ PRIMARY_BLUE };
 					border-color: ${ PRIMARY_BLUE } transparent ${ PRIMARY_BLUE } transparent;
-					animation: lds-dual-ring 1.2s linear infinite;
+					animation: rgc-loading-animation 1.2s linear infinite;
 					top: 14px;
 				    position: relative;
 				}
-				@keyframes lds-dual-ring {
+				@keyframes rgc-loading-animation {
 					0% {
 						transform: rotate(0deg);
 					}

@@ -19,7 +19,6 @@ export default class SearchBar extends React.Component {
         this.props.handleTextQueryChange && this.props.handleTextQueryChange( textquery );
     }
     
-
     render() {
         return (
             <React.Fragment>
