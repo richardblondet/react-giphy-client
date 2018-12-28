@@ -5,6 +5,19 @@ export default class Gifts extends React.Component {
 	constructor( props ) {
 		super( props )
 	}
+	componentDidMount() {
+		window.addEventListener('scroll', this.handleScroll, false);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleScroll, false);
+	}
+	handleScroll = ( event ) => {
+		
+		if ( (window.innerHeight + window.scrollY) >= (document.body.offsetHeight) && this.props.gifs.length ) {
+			this.props.loadMeSomeMoreMagic();
+		}
+	}
 
 	render() {
 		const { showing } = this.props
@@ -13,6 +26,6 @@ export default class Gifts extends React.Component {
 			return <GifImage key={ image.id } gif={ image } />
 		});
 
-		return GIFS && GIFS.length ? <GiftList showing={ showing }>{ GIFS }</GiftList> : <GiftListEmpty />
+		return GIFS && GIFS.length ? <GiftList onScroll={ this.handleScroll } showing={ showing }>{ GIFS }</GiftList> : <GiftListEmpty />
 	}
 }

@@ -2,6 +2,7 @@ import { FiSearch, FiRefreshCw } from "react-icons/fi";
 import { PRIMARY_BLUE, LIGHT_GREY, SECONDARY_GREY } from "../../config/colors"
 
 export default ( props ) => {
+	
 	return (
 		<div className="rgc-input-wrapper">
 	 		<input className="rgc-input" { ...props } />

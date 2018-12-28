@@ -6,7 +6,7 @@ import { PRIMARY_BLUE, LIGHT_GREY, SECONDARY_GREY } from "../../config/colors"
 export const GiftListEmpty = () => {
 	return (
 		<React.Fragment>
-			<div className="rgc-gifs_list--empty">No gifs Found</div>
+			<div className="rgc-gifs_list--empty">No gifs :(</div>
 			<style jsx>{`
 				.rgc-gifs_list--empty {
 					width: 100%;

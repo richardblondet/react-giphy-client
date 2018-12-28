@@ -16,10 +16,13 @@ export default class Index extends React.Component {
         super();
 
         this.state = {
+        	error: false,
             gifs: [],
-            isSearching: false,
-            isLoaded: false,
-            showing: ''
+            isLoading: false,
+            showing: '',
+            text: '',
+            limit: 15,
+            pagination: null
         }
 
     }
@@ -29,32 +32,46 @@ export default class Index extends React.Component {
     }
     
     gifTrendingHandler() {
+    	this.setState({ isLoading: true })
     	
     	Giphy.getTrendindGifs( 6 )
-    		.then( result => this.setState({gifs: result.data, showing: 'Treding'}) )
+    		.then( result => this.setState({ gifs: result.data, showing: 'Popular Gifs @giphy', isLoading: false }) )
     		.catch( error => console.log( error ))
 
     }
+    
     gifSearchHandler = (  text  ) => {
+    	this.setState({ isLoading: true, text: text })
     	
-    	Giphy.searchGifs( text )
-    		.then( result => this.setState({gifs: result.data, showing: 'Search Results'}) )
+    	Giphy.getGifs( 'search', { q: this.state.text, limit: this.state.limit })
+    		.then( result => {
+    			console.log( result );
+    			this.setState({ gifs: result.data, showing: 'Search Results', isLoading: false,  pagination: result.pagination }) 
+    		})
     		.catch( error => console.log( error ))
 
+    }
+
+    loadMoreGifs = () => {
+    	Giphy.getGifs( 'search', { q: this.state.text, limit: this.state.limit, offset: this.state.gifs.length })
+    		.then( result => {
+    			this.setState({ gifs: [...this.state.gifs, ...result.data], showing: 'Search Results', isLoading: false,  pagination: result.pagination }) 
+    		})
+    		.catch( error => console.log( error ))
     }
     
 
 	render() {
 		return (
 			<Page>
-				<Container pt={ this.state.isSearching ? '1em': '3em' }>
+				<Container pt="3em">
 					<Logo />
 				</Container>
 				<Container width="480px">
-					<SearchBar handleTextQueryChange={ this.gifSearchHandler }  />
+					<SearchBar handleTextQueryChange={ this.gifSearchHandler } isLoading={ this.state.isLoading } />
 				</Container>
 				<Container width="70%" pt="1em">
-					<Gifs gifs={ this.state.gifs } showing={ this.state.showing } />
+					<Gifs gifs={ this.state.gifs } showing={ this.state.showing } loadMeSomeMoreMagic={ this.loadMoreGifs } />
 				</Container>
 			</Page>
 		)
