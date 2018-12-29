@@ -41,18 +41,22 @@ export const GiftList = ( props ) => {
 					color: ${ SECONDARY_GREY };
 				}
 				.rgc-gifs_list {
-					column-count: 3;
-					column-gap: 1em;
+					display: grid;
+					grid-gap: 10px;
+					grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+					grid-auto-rows: minmax(100px, auto);
+					grid-auto-flow: dense;
+					padding: 10px;
 				}
 				:global( .rgc-gif_item ) {
-					display: inline-block;
-				    margin: 0 0 1em;
-				    width: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					background-color: #000;
 				}
 				:global( .rgc-gif_item img ) {
 					width: 100%;
 					height: auto;
-					vertical-align: middle;
 				}
 			`}</style>
 		</React.Fragment>
