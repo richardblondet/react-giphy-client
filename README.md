@@ -1,87 +1,44 @@
+
 # Gifinder
 
-Gifinder is a simple react application prototype of a GIF browsing app. Since the back-end has not yet been created, its been started by using the GIPHY public API.
+Gifinder is a simple react application prototype of a GIF browsing app. Because this is a prototype, its been started by using the [GIPHY](https://developers.giphy.com/docs/) public API.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+To run this application please follow the instructions.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Run the following commands to start the app in development mode. Please check the package.json script for further modes.
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+First clone this repo and enter to the app directory:
+```sh
+$ git clone https://github.com/richardblondet/react-giphy-client.git && cd react-giphy-client
 
 ```
-until finished
+Then install all dependencies and start the app
+```sh
+npm install && npm run dev
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [React](https://reactjs.org/) - The web framework used
+* [NextJS](https://nextjs.org/) - The react config framework
+* [React Icons by Netlify](https://react-icons.netlify.com/) - [Feather Icons](https://feathericons.com/) for beautiful open source icons 
+*  [NPM](https://www.npmjs.com) - Dependency management
+* NodeJS
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Richard Blondet**  - [RichardBlondet](https://github.com/richardblondet)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
