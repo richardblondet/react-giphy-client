@@ -1,11 +1,12 @@
+![Gifinder](screenshot.png)
 
 # Gifinder
 
-Gifinder is a simple react application prototype of a GIF browsing app. Because this is a prototype, its been started by using the [GIPHY](https://developers.giphy.com/docs/) public API.
+Gifinder is a simple react application prototype for finding GIFS. Because this is a prototype, it uses the [GIPHY](https://developers.giphy.com/docs/) public API.
 
 ## Getting Started
 
-To run this application please follow the instructions.
+To run this application please follow these instructions.
 
 ### Installing
 
@@ -16,7 +17,7 @@ First clone this repo and enter to the app directory:
 $ git clone https://github.com/richardblondet/react-giphy-client.git && cd react-giphy-client
 
 ```
-Then install all dependencies and start the app
+Then install all dependencies and start the app:
 ```sh
 npm install && npm run dev
 ```
@@ -41,4 +42,4 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
