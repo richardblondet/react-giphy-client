@@ -18,12 +18,15 @@ export default class Gifts extends React.Component {
 			this.props.loadMeSomeMoreMagic();
 		}
 	}
+	openGif = ( image ) => {
+		this.props.onGifClick( image )
+	}
 
 	render() {
 		const { showing } = this.props
 
 		const GIFS = this.props.gifs && this.props.gifs.map(( image ) => {
-			return <GifImage key={ image.id } gif={ image } />
+			return <GifImage key={ image.id } gif={ image } openGif={ this.openGif } />
 		});
 
 		return GIFS && GIFS.length ? <GiftList onScroll={ this.handleScroll } showing={ showing }>{ GIFS }</GiftList> : <GiftListEmpty />

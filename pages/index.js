@@ -2,9 +2,8 @@ import Page from '../components/Page'
 import Logo from '../components/Logo'
 import Container from '../components/Container'
 import SearchBar from '../components/Search'
-import Gifs from '../components/Gifs'
+import GifsLightBoxGallery from '../components/LightBox'
 import GiphyService, { API_KEY } from '../config/GiphyService'
-import LightBox from '../components/LightBox'
 
 import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
 
@@ -23,7 +22,8 @@ export default class Index extends React.Component {
             showing: '',
             text: '',
             limit: 15,
-            pagination: null
+            pagination: null,
+            currentGif: null
         }
 
     }
@@ -46,7 +46,6 @@ export default class Index extends React.Component {
     	
     	Giphy.getGifs( 'search', { q: this.state.text, limit: this.state.limit })
     		.then( result => {
-    			console.log( result );
     			this.setState({ gifs: result.data, showing: 'Search Results', isLoading: false,  pagination: result.pagination }) 
     		})
     		.catch( error => console.log( error ))
@@ -60,12 +59,12 @@ export default class Index extends React.Component {
     		})
     		.catch( error => console.log( error ))
     }
-    
+
 
 	render() {
 		return (
 			<Page>
-                <LightBox />
+                
 				<Container pt="3em">
 					<Logo />
 				</Container>
@@ -73,7 +72,11 @@ export default class Index extends React.Component {
 					<SearchBar handleTextQueryChange={ this.gifSearchHandler } isLoading={ this.state.isLoading } />
 				</Container>
 				<Container width="70%" pt="1em">
-					<Gifs gifs={ this.state.gifs } showing={ this.state.showing } loadMeSomeMoreMagic={ this.loadMoreGifs } />
+                    <GifsLightBoxGallery 
+                        gifs={ this.state.gifs } 
+                        showing={ this.state.showing } 
+                        loadMeSomeMoreMagic={ this.loadMoreGifs } 
+                    />
 				</Container>
 			</Page>
 		)
