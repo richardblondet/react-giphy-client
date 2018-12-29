@@ -1,5 +1,6 @@
 import { Component }  from 'react'
 import Head from './head'
+import ScrollToTop from '../ScrollToTop'
 
 export default class Page extends Component {
 	
@@ -15,6 +16,7 @@ export default class Page extends Component {
 			<React.Fragment>
 				<Head />
 				{ children }
+				<ScrollToTop />
 			</React.Fragment>
 		)
 	}
