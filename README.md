@@ -34,7 +34,7 @@ npm install && npm run dev
 
 ## Improvements opportunities
 This application was not developed using TDD so no test libraries were used. These can be easily achieved using this Jest or Mocha. An example can be found [here](https://github.com/zeit/next.js/tree/master/examples/with-jest) and [here](https://github.com/zeit/next.js/tree/canary/examples/with-mocha).
-Some of things can be easily implemented and would improve the quality of this application. For example:
+Some other things can be easily implemented and would improve the quality of this application. For example:
 * Better error handling.
 * Documenting components using [this convention](https://react-styleguidist.js.org/docs/documenting.html).
 * Adding type checking with propTypes to components for better controlling as recommended [here](https://reactjs.org/docs/typechecking-with-proptypes.html).
