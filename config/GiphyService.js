@@ -3,8 +3,9 @@ import fetch from 'isomorphic-unfetch'
 /**
  * Insert API KEY HERE
  * @type {String}
+ * @{@link  https://developers.giphy.com/docs/}
  */
-export const API_KEY = 'dc6zaTOxFJmzC'
+export const API_KEY = 'gCiS0PvW4dTtFA9OeyoAPJb5NeoQO1Ek'
 
 /**
  * Simple service class for Giphy
