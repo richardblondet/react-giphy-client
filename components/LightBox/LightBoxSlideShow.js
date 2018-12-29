@@ -4,8 +4,8 @@ import { LightBoxCloseButton, LightBoxNavButton } from './LightBoxButtons'
 export default class LightBoxSlideShow extends React.Component {
 	constructor( props ) {
 		super( props )
-
 	}
+	
 	render() {
 		return (
 			<div className="modal-container">
@@ -15,8 +15,8 @@ export default class LightBoxSlideShow extends React.Component {
 						
 						<LightBoxCloseButton onClick={ this.props.toggleModal } />
 						<LightBoxContent view={ this.props.gif } />
-				    	<LightBoxNavButton direction="left" />
-				    	<LightBoxNavButton direction="right" />
+				    	<LightBoxNavButton direction="left" onClick={ event => this.props.prevSlide() } />
+				    	<LightBoxNavButton direction="right" onClick={ event => this.props.nextSlide() } />
 				    	
 					</div>
 				</div>

@@ -1,5 +1,6 @@
 import { FiSearch, FiRefreshCw } from "react-icons/fi";
 import { PRIMARY_BLUE, LIGHT_GREY, SECONDARY_GREY } from "../../config/colors"
+import Loading from '../Shared/LoadingAnimation'
 
 export default ( props ) => {
 	
@@ -8,7 +9,7 @@ export default ( props ) => {
 	 		<input className="rgc-input" { ...props } />
 	 		<div className="rgc-icon-wrapper">
 	 			<FiSearch className="rgc-icon icon--static" />
-	 			<div className="rgc-loading-animation"></div>
+	 			<Loading color={ PRIMARY_BLUE } loading={ props.loading } />
 	 		</div>
 		 	<style jsx>{`
 		 		.rgc-input-wrapper {

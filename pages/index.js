@@ -64,7 +64,6 @@ export default class Index extends React.Component {
 	render() {
 		return (
 			<Page>
-                
 				<Container pt="3em">
 					<Logo />
 				</Container>
