@@ -4,6 +4,7 @@ import Container from '../components/Container'
 import SearchBar from '../components/Search'
 import Gifs from '../components/Gifs'
 import GiphyService, { API_KEY } from '../config/GiphyService'
+import LightBox from '../components/LightBox'
 
 import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
 
@@ -64,6 +65,7 @@ export default class Index extends React.Component {
 	render() {
 		return (
 			<Page>
+                <LightBox />
 				<Container pt="3em">
 					<Logo />
 				</Container>

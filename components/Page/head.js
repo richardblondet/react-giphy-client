@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import CustomResetCSS from './reset-css'
 import GlobalStyles from './global-styles'
-import LightBox from '../LightBox'
 
 export default ( props ) => {
 
@@ -15,7 +14,6 @@ export default ( props ) => {
 				<link href="https://fonts.googleapis.com/css?family=Poppins:400,600" rel="stylesheet" /> 
 			</Head>
 			<GlobalStyles bgColor="white" />
-			<LightBox />
 		</React.Fragment>
 	)
 }

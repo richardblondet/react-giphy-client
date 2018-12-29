@@ -1,3 +1,5 @@
+import { FiX } from "react-icons/fi";
+
 export default class LightBox extends React.Component {
 	constructor() {
 		super()
@@ -16,9 +18,13 @@ export default class LightBox extends React.Component {
 			<div className="modal-container">
 				<button className="trigger" onClick={ this.toggleModal }>Click here to trigger the modal!</button>
 				<div className={ `modal ${ this.state.isOn ? 'show-modal' : '' }` }>
+					<div className="modal-close-button" onClick={ this.toggleModal }>
+						<button> <FiX /> </button>
+					</div>
 				    <div className="modal-content">
-				        <span className="close-button" onClick={ this.toggleModal }>×</span>
-				        <h1>Hello, I am a modal!</h1>
+				    	<div className="modal-gif">
+				    		<img src="https://media1.giphy.com/media/3oz8xKEQllRI0hOnUk/giphy.gif" />
+				    	</div>
 				    </div>
 				</div>
 				<style jsx>{`
@@ -41,20 +47,23 @@ export default class LightBox extends React.Component {
 					        transform: translate(-50%, -50%);
 					        background-color: white;
 					        padding: 1rem 1.5rem;
-					        width: 24rem;
-					        border-radius: 0.5rem;
+					        width: auto;
+					        max-width: 935px;
+					        transition: width 0.3s cubic-bezier(.25,.8,.25,1);
 					    }
-					    .close-button {
-					        float: right;
-					        width: 1.5rem;
-					        line-height: 1.5rem;
-					        text-align: center;
-					        cursor: pointer;
-					        border-radius: 0.25rem;
-					        background-color: lightgray;
+					    .modal-close-button {
+					        position: absolute;
+					        right: 10px;
+					        top: 10px;
+					        font-size: 34px;
 					    }
-					    .close-button:hover {
-					        background-color: darkgray;
+					    .modal-close-button button {
+					        border: none;
+					        background-color: transparent;
+					        border-radius: 4px;
+					        padding: 2px 9px;
+					        font-weight: 600;
+					        color: #fff;
 					    }
 					    .show-modal {
 					        opacity: 1;
@@ -63,7 +72,6 @@ export default class LightBox extends React.Component {
 					        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 					        z-index: 100;
 					    }
-
 				`}</style>
 			</div>
 		)
