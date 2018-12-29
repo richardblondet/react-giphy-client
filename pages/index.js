@@ -5,10 +5,13 @@ import SearchBar from '../components/Search'
 import GifsLightBoxGallery from '../components/LightBox'
 import GiphyService, { API_KEY } from '../config/GiphyService'
 
-import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
+// import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
 
 const Giphy = new GiphyService( API_KEY );
 
+/**
+ * Index page
+ */
 export default class Index extends React.Component {
 	
 	constructor() {

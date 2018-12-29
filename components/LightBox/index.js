@@ -1,6 +1,9 @@
 import Gifs from '../Gifs'
 import LightBoxSlideShow from './LightBoxSlideShow'
 
+/**
+ * Gif lgihbox and gif list container for passing data and controlling behabior
+ */
 export default class GifsLightBoxGallery extends React.Component {
 	
 	constructor( props ) {

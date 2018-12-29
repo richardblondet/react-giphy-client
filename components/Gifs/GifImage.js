@@ -1,3 +1,6 @@
+/**
+ * Gif image component to render gifs in image tag 
+ */
 export default class GifImage extends React.Component {
 	
 	constructor( props ) {

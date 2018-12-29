@@ -1,5 +1,9 @@
 import { FiImage } from "react-icons/fi";
 
+/**
+ * Simple logo for this app.
+ * @return {object} Component
+ */
 export default () => {
 	return (
 		<div className="rgc-logo">

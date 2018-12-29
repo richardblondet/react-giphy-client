@@ -1,5 +1,10 @@
 import { FiX, FiChevronRight, FiChevronLeft } from "react-icons/fi";
 
+/**
+ * Close button component for the lightbox
+ * @param  {objet} props 
+ * @return {object}       Component
+ */
 export const LightBoxCloseButton = ( props ) => {
 	return (
 		<div className="modal-close-button">
@@ -17,6 +22,11 @@ export const LightBoxCloseButton = ( props ) => {
 	)
 }
 
+/**
+ * Navigation buttons
+ * @param  {object} props 
+ * @return {object}       Component
+ */
 export const LightBoxNavButton = ( props ) => {
 	const { direction } = props
 

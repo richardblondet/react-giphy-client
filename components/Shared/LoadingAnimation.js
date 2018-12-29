@@ -1,3 +1,8 @@
+/**
+ * Loading animationcomponent
+ * @param  {object} props 
+ * @return {object}       Component
+ */
 export default ( props ) => {
 	
 	const { color, borderWidth, loading } = props

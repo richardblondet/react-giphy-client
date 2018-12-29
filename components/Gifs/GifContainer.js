@@ -1,4 +1,5 @@
 import { PRIMARY_BLUE, LIGHT_GREY, SECONDARY_GREY } from "../../config/colors"
+
 /**
  * Custom component message for no gifs
  * @return {object}

@@ -1,6 +1,9 @@
 import GifImage from './GifImage'
 import { GiftListEmpty, GiftList } from './GifContainer'
 
+/**
+ * Gif Container for passing data and controlling scrolling behavior
+ */
 export default class Gifts extends React.Component {
 	
 	constructor( props ) {

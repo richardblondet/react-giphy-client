@@ -1,3 +1,8 @@
+/**
+ * Container Component for layout control
+ * @params { width, pt, pb, pl, pr } 
+ * 
+ */
 export default class Container extends React.Component {
 	constructor( props ) {
 		super( props )

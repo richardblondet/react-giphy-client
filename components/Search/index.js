@@ -1,5 +1,8 @@
 import SearchInput from './StyledInput'
 
+/**
+ * Search bar compoent for searching
+ */
 export default class SearchBar extends React.Component {
 	
     constructor( props ) {

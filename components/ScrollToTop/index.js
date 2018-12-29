@@ -1,6 +1,9 @@
 import { FiArrowUp } from "react-icons/fi";
 import { PRIMARY_BLUE, WHITE } from '../../config/colors'
 
+/**
+ * Simple Scroll to the top component
+ */
 export default class ScrollToTop extends React.Component {
 	constructor( props ) {
 		super( props )

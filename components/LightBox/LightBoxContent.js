@@ -1,6 +1,9 @@
 import Loading from '../Shared/LoadingAnimation'
 import { SECONDARY_GREY }  from '../../config/colors'
 
+/**
+ * Content for the lightbox. Controls if gif is shown succesfully
+ */
 export default class LightBoxContent extends React.Component {
 	constructor( props ) {
 		super( props )

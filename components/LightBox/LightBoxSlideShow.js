@@ -1,6 +1,9 @@
 import LightBoxContent from './LightBoxContent'
 import { LightBoxCloseButton, LightBoxNavButton } from './LightBoxButtons'
 
+/**
+ * Lighbox slideshow for gifs component.
+ */
 export default class LightBoxSlideShow extends React.Component {
 	constructor( props ) {
 		super( props )

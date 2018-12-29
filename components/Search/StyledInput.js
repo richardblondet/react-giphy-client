@@ -2,6 +2,11 @@ import { FiSearch, FiRefreshCw } from "react-icons/fi";
 import { PRIMARY_BLUE, LIGHT_GREY, SECONDARY_GREY } from "../../config/colors"
 import Loading from '../Shared/LoadingAnimation'
 
+/**
+ * Input with styled and simple logic
+ * @param  {object} props 
+ * @return {object}       Component
+ */
 export default ( props ) => {
 	
 	return (

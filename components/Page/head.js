@@ -2,6 +2,11 @@ import Head from 'next/head'
 import CustomResetCSS from './reset-css'
 import GlobalStyles from './global-styles'
 
+/**
+ * Head component
+ * @param  {object} props 
+ * @return {object}       Component
+ */
 export default ( props ) => {
 
 	return (

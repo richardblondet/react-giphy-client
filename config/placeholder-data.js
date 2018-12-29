@@ -1,3 +1,7 @@
+/**
+ * Data that will be used to design application around.
+ * @type {Array}
+ */
 export const PLACEHOLDER_GIFS = [{
 	type:"gif",
 	id:"3oz8xKEQllRI0hOnUk",

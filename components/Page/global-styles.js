@@ -1,6 +1,10 @@
 import React from 'react'
 
-// const GlobalStyles = 
+/**
+ * Default global styles
+ * @param  {object} props 
+ * @return {object}       Component
+ */
 export default ( props ) => (
 	<React.Fragment>
 		<style jxs="true" global="true">{`
