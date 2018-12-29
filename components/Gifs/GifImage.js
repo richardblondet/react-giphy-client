@@ -15,9 +15,9 @@ export default class GifImage extends React.Component {
 	handleOnMouseEnter = event => {
 		if( this.state.cached ) return;
 
-		const img = document.createElement( 'img' )
+		const img = new Image()
 		img.src = this.props.gif.images.original.url
-
+		
 		this.setState({
 			cached: true,
 			elem: img

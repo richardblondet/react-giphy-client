@@ -8,18 +8,54 @@ export default class LightBoxSlideShow extends React.Component {
 	constructor( props ) {
 		super( props )
 	}
+
+	componentDidMount(){
+		document.addEventListener("keydown", this.onKeyDownHandler, false);
+	}
+
+	componentWillUnmount(){
+		document.removeEventListener("keydown", this.onKeyDownHandler, false);
+	}
+
+	onKeyDownHandler = event => {
+
+		if( this.props.gif && event.key === "Escape" ) {
+			this.handleCloseClick()
+		}
+		if( this.props.gif && event.key === "ArrowRight" ) {
+			this.nextSlide()
+		}
+		if( this.props.gif && event.key === "ArrowLeft" ) {
+			this.prevSlide()
+		}
+		
+	}
+
+	handleCloseClick = event => {
+		this.props.unsetSelectedGif()
+	}
+
+	nextSlide = event => {
+		this.props.nextSlide( this.props.index + 1 )
+	}
+	
+	prevSlide = event => {
+		this.props.prevSlide( this.props.index - 1 )
+	}
 	
 	render() {
 		return (
 			<div className="modal-container">
-				
-				<div className={ `modal ${ this.props.isOn ? 'show-modal' : '' }` }>
+				<div className={ `modal ${ this.props.gif ? 'show-modal' : '' }` }>
 					<div className="modal-content-wrapper">
 						
-						<LightBoxCloseButton onClick={ this.props.toggleModal } />
-						<LightBoxContent view={ this.props.gif } />
-				    	<LightBoxNavButton direction="left" onClick={ event => this.props.prevSlide() } />
-				    	<LightBoxNavButton direction="right" onClick={ event => this.props.nextSlide() } />
+						<LightBoxCloseButton onClick={ this.handleCloseClick } />
+						<LightBoxContent 
+							image={ this.props.gif && this.props.gif.images.original.url } 
+							url={ this.props.gif && this.props.gif.bitly_url } 
+						/>
+				    	<LightBoxNavButton direction="left" onClick={ this.prevSlide } />
+				    	<LightBoxNavButton direction="right" onClick={ this.nextSlide } />
 				    	
 					</div>
 				</div>

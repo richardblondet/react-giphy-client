@@ -12,12 +12,21 @@ export default class LightBoxContent extends React.Component {
 			isReady: false,
 			error: false
 		}
+
+		this.preloadImage()
 	}
 
 	onLoadHandler = event => {
 		this.setState({
 			isReady: true
 		})
+	}
+
+	preloadImage = () => {
+		let img = new Image()
+		img.src = this.props.image
+		img.onload = this.onLoadHandler
+		img.onerror = this.onErrorHandler
 	}
 
 	onErrorHandler = event => {
@@ -29,19 +38,34 @@ export default class LightBoxContent extends React.Component {
 
 	render() {
 
-		const { view } = this.props
-
-		if( view && !'images' in view ) return;
+		const { image, url } = this.props
 
 		return ( 
 				
 			<div className="modal-content">
 				<div className="modal-gif">
-					<a href={ view.bitly_url } target="_blank">
-						<img src={ view.images.original.url } onLoad={ this.onLoadHandler } onError={ this.onErrorHandler } style={{ display: this.state.isReady ? 'block':'none' }} />
-					</a>
-					<Loading color="#000" loading={ !this.state.isReady } />
-					{ this.state.error ? ( <p className="image-error"> There was an error while loading this gif </p> ) : '' }
+				
+				{	
+					this.state.isReady ?
+						<a
+							href={ url } 
+							target="_blank">
+							
+							<img 
+								src={ image }
+							/>
+						
+						</a>
+					:
+
+					<Loading 
+						color="#000" 
+						loading={ true } 
+					/>
+
+				}
+
+					{ this.state.error ? <p className="image-error"> There was an error while loading this gif </p> : '' }
 				</div>
 				<style jsx>{`
 					.modal-content {

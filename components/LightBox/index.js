@@ -10,38 +10,10 @@ export default class GifsLightBoxGallery extends React.Component {
 		super( props )
 
 		this.state = {
-			isOn: this.props.gif ? true:false,
-			gif: null,
-			currentIndex: 0
+			gif: this.props.gif ? this.props.gif:null,
+			currentIndex: 0,
+			cached: false
 		}
-	}
-
-	componentDidMount(){
-		document.addEventListener("keydown", this.onKeyDownHandler, false);
-	}
-
-	componentWillUnmount(){
-		document.removeEventListener("keydown", this.onKeyDownHandler, false);
-	}
-	
-	onKeyDownHandler = event => {
-		if( this.state.isOn && event.key === "Escape" ) {
-			this.toggleModal()
-		}
-		if( this.state.isOn && event.key === "ArrowRight" ) {
-			this.nextSlide()
-		}
-		if( this.state.isOn && event.key === "ArrowLeft" ) {
-			this.prevSlide()
-		}
-		
-		
-	}
-
-	toggleModal = () => {
-		this.setState({
-			isOn: !this.state.isOn
-		})
 	}
 
 	startGifSlideShow = ( index ) => {
@@ -49,7 +21,7 @@ export default class GifsLightBoxGallery extends React.Component {
 		this._gifIndexExists( index ) && this.setState({
 			gif: this.props.gifs[ index ],
 			currentIndex: index,
-			isOn: true
+			cached: true
 		})
 
 		// cache nexts
@@ -59,20 +31,16 @@ export default class GifsLightBoxGallery extends React.Component {
 
 	}
 
-	nextSlide = () => {
+	requestGif = ( index ) => {
+
+		const gifExists = this._gifIndexExists( index )
+		
 		this.setState({
-			isOn: false,
-			gif: null
+			gif: gifExists ? this.props.gifs[ index ] : null,
+			currentIndex: gifExists ? index:0
 		})
-		this.startGifSlideShow( this.state.currentIndex + 1 )
-	}
-	
-	prevSlide = () => {
-		this.setState({
-			isOn: false,
-			gif: null
-		})
-		this.startGifSlideShow( this.state.currentIndex - 1 )
+		
+		gifExists && this.startGifSlideShow( index );
 	}
 
 	_gifIndexExists( index ) {
@@ -80,13 +48,17 @@ export default class GifsLightBoxGallery extends React.Component {
 	}
 
 	_prefecthAndCacheGif( gif ) {
-
-		const img = document.createElement( 'img' )
+		const img = new Image()
 		img.src = gif && gif.images.original.url
 
 		gif.cached = true
 
-
+	}
+	
+	unsetSelectedGif = () => {
+		this.setState({
+			gif: null
+		})
 	}
 
 	render() {
@@ -105,19 +77,17 @@ export default class GifsLightBoxGallery extends React.Component {
                     loadMeSomeMoreMagic={ loadMeSomeMoreMagic } 
                     onGifClick={ this.startGifSlideShow } />
 				
-				{ 
-					this.state.isOn ?
-						<LightBoxSlideShow 
-							isOn={ this.state.isOn } 
-							toggleModal={ this.toggleModal } 
+				{
+					this.state.cached ?
+						<LightBoxSlideShow
 							gif={ this.state.gif } 
-							prevSlide={ this.prevSlide }
-							nextSlide={ this.nextSlide } 
+							prevSlide={ this.requestGif }
+							nextSlide={ this.requestGif } 
 							index={ this.state.currentIndex } 
-							onKeyUp={ event => console.log( event ) }
+							unsetSelectedGif={ this.unsetSelectedGif }
 						/>
-					:
-						<div></div>
+					: 
+					<div></div>
 				}
 			</div>
 		)
