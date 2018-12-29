@@ -12,10 +12,9 @@ export default class GifImage extends React.Component {
 	handleOnMouseEnter = event => {
 		if( this.state.cached ) return;
 
-		console.log('cached')
 		const img = document.createElement( 'img' )
 		img.src = this.props.gif.images.original.url
-		
+
 		this.setState({
 			cached: true,
 			elem: img
@@ -46,7 +45,7 @@ export default class GifImage extends React.Component {
 				style={ gifStyle }
 				onClick={ () => props.openGif( props.indx ) }
 			>
-				<img src={ url } style={{ flex: ( width / height ) }} onMouseEnter={ this.handleOnMouseEnter } />
+				<img src={ url } style={{ cursor: 'pointer' }} onMouseEnter={ this.handleOnMouseEnter } />
 			</div>
 		)
 	}

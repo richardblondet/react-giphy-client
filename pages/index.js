@@ -53,6 +53,8 @@ export default class Index extends React.Component {
     }
 
     loadMoreGifs = () => {
+        if( this.state.text === '' ) return
+            
     	Giphy.getGifs( 'search', { q: this.state.text, limit: this.state.limit, offset: this.state.gifs.length })
     		.then( result => {
     			this.setState({ gifs: [...this.state.gifs, ...result.data], showing: 'Search Results', isLoading: false,  pagination: result.pagination }) 

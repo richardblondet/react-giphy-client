@@ -13,10 +13,19 @@ export default class GifsLightBoxGallery extends React.Component {
 		}
 	}
 
-	componentDidMount() {}
+	componentDidMount(){
+		document.addEventListener("keydown", this.onKeyDownHandler, false);
+	}
 
-	componentWillUnmount() {}
+	componentWillUnmount(){
+		document.removeEventListener("keydown", this.onKeyDownHandler, false);
+	}
 	
+	onKeyDownHandler = event => {
+		if( this.state.isOn && event.key === "Escape" ) {
+			this.toggleModal()
+		}
+	}
 
 	toggleModal = () => {
 		this.setState({
@@ -33,13 +42,9 @@ export default class GifsLightBoxGallery extends React.Component {
 		})
 
 		// cache nexts
-		if( this.state.isOn && this._gifIndexExists( this.state.currentIndex + 1 ) ) {
-			this._prefecthAndCacheGif( this.props.gifs[ this.state.currentIndex + 1 ] )
-		}
+		this._gifIndexExists( index + 1  ) && this._prefecthAndCacheGif( this.props.gifs[  index + 1 ] )
 		// cache prevs
-		if( this.state.isOn && this._gifIndexExists( this.state.currentIndex - 1 ) ) {
-			this._prefecthAndCacheGif( this.props.gifs[ this.state.currentIndex - 1 ] )
-		}
+		this._gifIndexExists( index - 1  ) && this._prefecthAndCacheGif( this.props.gifs[  index - 1 ] )
 
 	}
 
@@ -64,13 +69,12 @@ export default class GifsLightBoxGallery extends React.Component {
 	}
 
 	_prefecthAndCacheGif( gif ) {
-		if( gif && gif.cached ) return
 
 		const img = document.createElement( 'img' )
 		img.src = gif && gif.images.original.url
 
 		gif.cached = true
-		console.log('caching gifs')
+
 
 	}
 

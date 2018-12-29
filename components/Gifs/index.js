@@ -16,7 +16,7 @@ export default class Gifts extends React.Component {
 	}
 	
 	handleScroll = ( event ) => {
-		
+
 		if ( (window.innerHeight + window.scrollY) >= (document.body.offsetHeight) && this.props.gifs.length ) {
 			this.props.loadMeSomeMoreMagic();
 		}

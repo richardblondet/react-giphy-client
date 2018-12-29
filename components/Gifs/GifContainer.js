@@ -47,6 +47,7 @@ export const GiftList = ( props ) => {
 					grid-auto-rows: minmax(100px, auto);
 					grid-auto-flow: dense;
 					padding: 10px;
+					margin-bottom: 3em;
 				}
 				:global( .rgc-gif_item ) {
 					display: flex;
