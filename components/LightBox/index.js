@@ -25,6 +25,14 @@ export default class GifsLightBoxGallery extends React.Component {
 		if( this.state.isOn && event.key === "Escape" ) {
 			this.toggleModal()
 		}
+		if( this.state.isOn && event.key === "ArrowRight" ) {
+			this.nextSlide()
+		}
+		if( this.state.isOn && event.key === "ArrowLeft" ) {
+			this.prevSlide()
+		}
+		
+		
 	}
 
 	toggleModal = () => {
