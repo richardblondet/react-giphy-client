@@ -13,8 +13,11 @@ export default class LightBoxSlideShow extends React.Component {
 		super( props )
 
 		this.state = {
+			gif: null,
 			isOpen: false,
-			imageReady: false
+			imageReady: false,
+			isError: false,
+			currentIndex: false
 		}
 	}
 
@@ -26,42 +29,99 @@ export default class LightBoxSlideShow extends React.Component {
 		document.removeEventListener("keydown", this.onKeyDownHandler, false);
 	}
 
+	componentDidUpdate( prevProps ) {
+		// Open 
+		if( this.props.index !== false && this.state.isOpen === false ) {
+			this.openSlideShow( this.props.gifs[ this.props.index ] )
+			this.setState({ currentIndex: this.props.index })
+		}
+		
+		// Close
+		if( this.props.index === false && this.state.isOpen ) {
+			this.setState({ isOpen: false })
+		}
+
+	}
+
 	onKeyDownHandler = event => {
 
-		if( this.props.gif && event.key === "Escape" ) {
+		if( this.state.gif && event.key === "Escape" ) {
 			this.closeSlideShow()
 		}
-		if( this.props.gif && event.key === "ArrowRight" ) {
+		if( this.state.gif && event.key === "ArrowRight" ) {
 			this.nextSlide()
 		}
-		if( this.props.gif && event.key === "ArrowLeft" ) {
+		if( this.state.gif && event.key === "ArrowLeft" ) {
 			this.prevSlide()
 		}
 		
 	}
 
-	preloadImage = () => {
-		let img = new Image()
-		img.onload = this.onLoadHandler
-		img.onerror = this.onErrorHandler
-		img.src = this.props.image
+	preloadImage = ( imageSrc ) => {
+		var PreloadRequest = new Promise(( resolve, reject ) => {
+			let img = new Image();
+			img.onload = ( event ) => resolve('Image loaded')
+			img.onerror = ( event ) => reject('error')
+			img.src = imageSrc;
+		})
+
+		return PreloadRequest;
 	}
 
 	closeSlideShow = event => {
+		this.setState({
+			imageReady: false
+		})
 		this.props.unsetSelectedGif()
+	}
+	openSlideShow = ( gif ) => {
+
+		this.setState({ gif, isOpen: true });
+		
+		this.preloadImage( gif.images.original.url ).then(( result ) => {
+			this.setState({ imageReady: true })
+		});
 	}
 
 	nextSlide = event => {
-		console.log('navigate nextSlide');
-		this.props.nextSlide( this.props.index + 1 )
+		var index = this.state.currentIndex + 1
+
+		this.navigateToSlide( index )
 	}
 	
 	prevSlide = event => {
-		console.log('navigate prevSlide');
-		this.props.prevSlide( this.props.index - 1 )
+		var index = this.state.currentIndex - 1
+		
+		this.navigateToSlide( index )
 	}
+
+	navigateToSlide = ( index ) => {
+		this.setState({
+			imageReady: false,
+			gif: null
+		})
+
+		console.log('navigateToSlide', index );
+
+		if( this.props.gifs[ index ]) {
+			const gif = this.props.gifs[ index ]
+
+			this.setState({ gif, currentIndex: index })
+
+			this.preloadImage( gif.images.original.url ).then(( result ) => {
+				this.setState({ imageReady: true })
+			});
+		}
+		else {
+			this.closeSlideShow()
+		}
+	}
+
 	
 	render() {
+		
+		if( ! this.props.gifs ) return ''; // do not render until gifs are ready
+
 		return (
 			<LightBoxWindow open={ this.state.isOpen }>
 				
@@ -69,15 +129,31 @@ export default class LightBoxSlideShow extends React.Component {
 					
 					<LightBoxContent>
 
-						<Loading 
-							color="#000" 
-							loading={ true } 
-						/>
+						{
+							!this.state.imageReady && !this.state.isError ?
+								<Loading 
+									color="#000" 
+									loading={ true } 
+								/>
+							: ''
+						}
 
-						<LightBoxGifImage 
-							src={''} 
-							href={''} 
-						/>
+						{	
+							this.state.imageReady ?
+								<LightBoxGifImage 
+									src={ this.state.gif.images.original.url } 
+									href={ this.state.gif.bitly_gif_url } 
+								/>
+							: ''
+						}
+
+						{ 
+							this.state.isError ?
+								<LightBoxImageError
+									message="There was an error while loading this gif"
+								/>
+							:''
+						}
 
 					</LightBoxContent>
 		    	

@@ -10,55 +10,59 @@ export default class GifsLightBoxGallery extends React.Component {
 		super( props )
 
 		this.state = {
-			gif: this.props.gif ? this.props.gif:null,
-			currentIndex: 0,
+			currentIndex: false,
 			cached: false
 		}
+
 	}
 
 	requestGif = ( index ) => {
-
 		this.setState({ cached: true })
 
 		var RequestPromise = new Promise(( resolve, reject ) => {
 			
-			if( this._gifIndexExists( index ) ) {
-				resolve( this.props.gifs[ index ], index )
+			if( this.gifIndexExists( index ) ) {
+				resolve( index )
 			}
 			else {
-				reject( null, index )
+				reject( false )
 			}
 		})
 
 		return RequestPromise;
 	}
 
+	setCurentIndex = ( index ) => {
+		this.setState({ currentIndex: index })
+	}
+
 	onClickGifRequestHandler = ( index ) => {
-		
+
 		this.requestGif( index )
 		
-			.then(( gif, index ) => {
+			.then(( gif, indx ) => {
 				
 				this.setState({
-					gif: gif,
-					currentIndex: index,
+					currentIndex: index
 				})
 			})
 			
 			.catch(( result ) => {
-				console.log( 'No gif' , result );
+				this.setState({
+					currentIndex: false
+				})
 			})
-	}
-
-	_gifIndexExists( index ) {
-		return this.props.gifs[ index ] ? true:false
 	}
 	
 	unsetSelectedGif = () => {
 		this.setState({
-			gif: null,
-			currentIndex: 0
+			currentIndex: false
 		})
+	}
+
+
+	gifIndexExists( index ) {
+		return this.props.gifs[ index ] ? true:false
 	}
 
 	render() {
@@ -79,14 +83,14 @@ export default class GifsLightBoxGallery extends React.Component {
 				
 				
 				<LightBoxSlideShow
-					gif={ this.state.gif } 
-					prevSlide={ this.requestGif }
-					nextSlide={ this.requestGif } 
-					index={ this.state.currentIndex } 
+					gifs={ gifs } 
+					index={ this.state.currentIndex }
+					setSelectedGif= { this.setCurentIndex }
+					gifIndexExists={ this.gifIndexExists }
 					unsetSelectedGif={ this.unsetSelectedGif }
 
 				/>
-				
+
 			</div>
 		)
 	}
