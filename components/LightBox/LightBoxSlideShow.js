@@ -78,9 +78,15 @@ export default class LightBoxSlideShow extends React.Component {
 
 		this.setState({ gif, isOpen: true });
 		
-		this.preloadImage( gif.images.original.url ).then(( result ) => {
+		this.preloadImage( gif.images.original.url )
+
+		.then(( result ) => {
 			this.setState({ imageReady: true })
-		});
+		})
+
+		.catch(( result) => {
+			this.setState({ isError: true })
+		})
 	}
 
 	nextSlide = event => {
@@ -108,9 +114,15 @@ export default class LightBoxSlideShow extends React.Component {
 
 			this.setState({ gif, currentIndex: index })
 
-			this.preloadImage( gif.images.original.url ).then(( result ) => {
+			this.preloadImage( gif.images.original.url )
+
+			.then(( result ) => {
 				this.setState({ imageReady: true })
-			});
+			})
+
+			.catch(( result) => {
+				this.setState({ isError: true })
+			})
 		}
 		else {
 			this.closeSlideShow()
