@@ -107,7 +107,7 @@ export default class LightBoxSlideShow extends React.Component {
 			gif: null
 		})
 
-		console.log('navigateToSlide', index );
+		// console.log('navigateToSlide', index );
 
 		if( this.props.gifs[ index ]) {
 			const gif = this.props.gifs[ index ]
