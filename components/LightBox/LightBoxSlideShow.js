@@ -1,5 +1,8 @@
 import LightBoxWindow from './LightBoxWindow'
 import LightBoxContent from './LightBoxContent'
+import LightBoxGifImage from './LightBoxGifImage'
+import LightBoxImageError from './LightBoxImageError'
+import Loading from '../Shared/LoadingAnimation'
 import { LightBoxCloseButton, LightBoxNavButton } from './LightBoxButtons'
 
 /**
@@ -10,7 +13,8 @@ export default class LightBoxSlideShow extends React.Component {
 		super( props )
 
 		this.state = {
-			isOpen: false
+			isOpen: false,
+			imageReady: false
 		}
 	}
 
@@ -36,6 +40,13 @@ export default class LightBoxSlideShow extends React.Component {
 		
 	}
 
+	preloadImage = () => {
+		let img = new Image()
+		img.onload = this.onLoadHandler
+		img.onerror = this.onErrorHandler
+		img.src = this.props.image
+	}
+
 	closeSlideShow = event => {
 		this.props.unsetSelectedGif()
 	}
@@ -52,18 +63,33 @@ export default class LightBoxSlideShow extends React.Component {
 	
 	render() {
 		return (
-			<LightBoxWindow open={ this.props.gif }>
+			<LightBoxWindow open={ this.state.isOpen }>
 				
 				<LightBoxCloseButton onClick={ this.closeSlideShow } />
-				
-				<LightBoxContent 
-					image={ this.props.gif && this.props.gif.images.original.url } 
-					url={ this.props.gif && this.props.gif.bitly_url } 
-				/>
+					
+					<LightBoxContent>
+
+						<Loading 
+							color="#000" 
+							loading={ true } 
+						/>
+
+						<LightBoxGifImage 
+							src={''} 
+							href={''} 
+						/>
+
+					</LightBoxContent>
 		    	
-		    	<LightBoxNavButton direction="left" onClick={ this.prevSlide } />
+		    	<LightBoxNavButton 
+		    		direction="left" 
+		    		onClick={ this.prevSlide } 
+		    	/>
 		    	
-		    	<LightBoxNavButton direction="right" onClick={ this.nextSlide } />
+		    	<LightBoxNavButton 
+		    		direction="right" 
+		    		onClick={ this.nextSlide } 
+		    	/>
 
 		    </LightBoxWindow>
 		)

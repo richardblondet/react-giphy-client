@@ -12,7 +12,6 @@ export default class GifsLightBoxGallery extends React.Component {
 		this.state = {
 			gif: this.props.gif ? this.props.gif:null,
 			currentIndex: 0,
-			isLightboxOpen: false,
 			cached: false
 		}
 	}
@@ -40,12 +39,9 @@ export default class GifsLightBoxGallery extends React.Component {
 		
 			.then(( gif, index ) => {
 				
-				// console.log( gif );
-				
 				this.setState({
 					gif: gif,
 					currentIndex: index,
-					isLightboxOpen: true
 				})
 			})
 			
@@ -81,19 +77,16 @@ export default class GifsLightBoxGallery extends React.Component {
                     loadMeSomeMoreMagic={ loadMeSomeMoreMagic } 
                     onGifClick={ this.onClickGifRequestHandler } />
 				
-				{
-					this.state.cached && this.state.isLightboxOpen  ?
-						<LightBoxSlideShow
-							gif={ this.state.gif } 
-							prevSlide={ this.requestGif }
-							nextSlide={ this.requestGif } 
-							index={ this.state.currentIndex } 
-							unsetSelectedGif={ this.unsetSelectedGif }
+				
+				<LightBoxSlideShow
+					gif={ this.state.gif } 
+					prevSlide={ this.requestGif }
+					nextSlide={ this.requestGif } 
+					index={ this.state.currentIndex } 
+					unsetSelectedGif={ this.unsetSelectedGif }
 
-						/>
-					: 
-					<div></div>
-				}
+				/>
+				
 			</div>
 		)
 	}
