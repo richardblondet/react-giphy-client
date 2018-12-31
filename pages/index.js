@@ -5,7 +5,7 @@ import SearchBar from '../components/Search'
 import GifsLightBoxGallery from '../components/LightBox'
 import GiphyService, { API_KEY } from '../config/GiphyService'
 
-// import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
+import { PLACEHOLDER_GIFS } from '../config/placeholder-data'
 
 const Giphy = new GiphyService( API_KEY );
 
@@ -76,11 +76,15 @@ export default class Index extends React.Component {
 					<SearchBar handleTextQueryChange={ this.gifSearchHandler } isLoading={ this.state.isLoading } />
 				</Container>
 				<Container width="70%" pt="1em">
+                {
+                    this.state.gifs.length > 0 ?
                     <GifsLightBoxGallery 
                         gifs={ this.state.gifs } 
                         showing={ this.state.showing } 
                         loadMeSomeMoreMagic={ this.loadMoreGifs } 
                     />
+                    : ''
+                }
 				</Container>
 			</Page>
 		)

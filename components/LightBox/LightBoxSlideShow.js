@@ -1,4 +1,8 @@
+import LightBoxWindow from './LightBoxWindow'
 import LightBoxContent from './LightBoxContent'
+import LightBoxGifImage from './LightBoxGifImage'
+import LightBoxImageError from './LightBoxImageError'
+import Loading from '../Shared/LoadingAnimation'
 import { LightBoxCloseButton, LightBoxNavButton } from './LightBoxButtons'
 
 /**
@@ -7,64 +11,175 @@ import { LightBoxCloseButton, LightBoxNavButton } from './LightBoxButtons'
 export default class LightBoxSlideShow extends React.Component {
 	constructor( props ) {
 		super( props )
+
+		this.state = {
+			gif: null,
+			isOpen: false,
+			imageReady: false,
+			isError: false,
+			currentIndex: false
+		}
+	}
+
+	componentDidMount(){
+		document.addEventListener("keydown", this.onKeyDownHandler, false);
+	}
+
+	componentWillUnmount(){
+		document.removeEventListener("keydown", this.onKeyDownHandler, false);
+	}
+
+	componentDidUpdate( prevProps ) {
+		// Open 
+		if( this.props.index !== false && this.state.isOpen === false ) {
+			this.openSlideShow( this.props.gifs[ this.props.index ] )
+			this.setState({ currentIndex: this.props.index })
+		}
+		
+		// Close
+		if( this.props.index === false && this.state.isOpen ) {
+			this.setState({ isOpen: false })
+		}
+
+	}
+
+	onKeyDownHandler = event => {
+
+		if( this.state.gif && event.key === "Escape" ) {
+			this.closeSlideShow()
+		}
+		if( this.state.gif && event.key === "ArrowRight" ) {
+			this.nextSlide()
+		}
+		if( this.state.gif && event.key === "ArrowLeft" ) {
+			this.prevSlide()
+		}
+		
+	}
+
+	preloadImage = ( imageSrc ) => {
+		var PreloadRequest = new Promise(( resolve, reject ) => {
+			let img = new Image();
+			img.onload = ( event ) => resolve('Image loaded')
+			img.onerror = ( event ) => reject('error')
+			img.src = imageSrc;
+		})
+
+		return PreloadRequest;
+	}
+
+	closeSlideShow = event => {
+		this.setState({
+			imageReady: false
+		})
+		this.props.unsetSelectedGif()
+	}
+	openSlideShow = ( gif ) => {
+
+		this.setState({ gif, isOpen: true });
+		
+		this.preloadImage( gif.images.original.url )
+
+		.then(( result ) => {
+			this.setState({ imageReady: true })
+		})
+
+		.catch(( result) => {
+			this.setState({ isError: true })
+		})
+	}
+
+	nextSlide = event => {
+		var index = this.state.currentIndex + 1
+
+		this.navigateToSlide( index )
 	}
 	
+	prevSlide = event => {
+		var index = this.state.currentIndex - 1
+		
+		this.navigateToSlide( index )
+	}
+
+	navigateToSlide = ( index ) => {
+		this.setState({
+			imageReady: false,
+			gif: null
+		})
+
+		// console.log('navigateToSlide', index );
+
+		if( this.props.gifs[ index ]) {
+			const gif = this.props.gifs[ index ]
+
+			this.setState({ gif, currentIndex: index })
+
+			this.preloadImage( gif.images.original.url )
+
+			.then(( result ) => {
+				this.setState({ imageReady: true })
+			})
+
+			.catch(( result) => {
+				this.setState({ isError: true })
+			})
+		}
+		else {
+			this.closeSlideShow()
+		}
+	}
+
+	
 	render() {
+		
+		if( ! this.props.gifs ) return ''; // do not render until gifs are ready
+
 		return (
-			<div className="modal-container">
+			<LightBoxWindow open={ this.state.isOpen }>
 				
-				<div className={ `modal ${ this.props.isOn ? 'show-modal' : '' }` }>
-					<div className="modal-content-wrapper">
-						
-						<LightBoxCloseButton onClick={ this.props.toggleModal } />
-						<LightBoxContent view={ this.props.gif } />
-				    	<LightBoxNavButton direction="left" onClick={ event => this.props.prevSlide() } />
-				    	<LightBoxNavButton direction="right" onClick={ event => this.props.nextSlide() } />
-				    	
-					</div>
-				</div>
-				<style jsx>{`
-					.modal {
-					        position: fixed;
-					        left: 0;
-					        top: 0;
-					        width: 100%;
-					        height: 100%;
-					        background-color: rgba(0, 0, 0, 0.5);
-					        opacity: 0;
-					        visibility: hidden;
-					        transform: scale(1.1);
-					        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-					    }
-					    .modal-content-wrapper {
-					        position: relative;
-					        width: 100%;
-					        height: 100%;
-					    }
-					    :global( .modal-close-button button, .modal-navigation-button button ) {
-					        border: none;
-					        background-color: transparent;
-					        border-radius: 4px;
-					        padding: 2px 9px;
-					        font-weight: 600;
-					        color: #fff;
-					        cursor: pointer;
-					    }
-					    :global( .modal-navigation-button--left ) {
-					        left: 0;
-					    }
-					    :global( .modal-navigation-button--right ) {
-					        right: 0;
-					    }
-					    .show-modal {
-					        opacity: 1;
-					        visibility: visible;
-					        transform: scale(1.0);
-					        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-					        z-index: 100;
-					    }
-				`}</style>
-			</div>
+				<LightBoxCloseButton onClick={ this.closeSlideShow } />
+					
+					<LightBoxContent>
+
+						{
+							!this.state.imageReady && !this.state.isError ?
+								<Loading 
+									color="#000" 
+									loading={ true } 
+								/>
+							: ''
+						}
+
+						{	
+							this.state.imageReady ?
+								<LightBoxGifImage 
+									src={ this.state.gif.images.original.url } 
+									href={ this.state.gif.bitly_gif_url } 
+								/>
+							: ''
+						}
+
+						{ 
+							this.state.isError ?
+								<LightBoxImageError
+									message="There was an error while loading this gif"
+								/>
+							:''
+						}
+
+					</LightBoxContent>
+		    	
+		    	<LightBoxNavButton 
+		    		direction="left" 
+		    		onClick={ this.prevSlide } 
+		    	/>
+		    	
+		    	<LightBoxNavButton 
+		    		direction="right" 
+		    		onClick={ this.nextSlide } 
+		    	/>
+
+		    </LightBoxWindow>
 		)
 	}
 }
