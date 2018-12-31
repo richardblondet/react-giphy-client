@@ -12,52 +12,56 @@ export default class GifsLightBoxGallery extends React.Component {
 		this.state = {
 			gif: this.props.gif ? this.props.gif:null,
 			currentIndex: 0,
+			isLightboxOpen: false,
 			cached: false
 		}
 	}
 
-	startGifSlideShow = ( index ) => {
-
-		this._gifIndexExists( index ) && this.setState({
-			gif: this.props.gifs[ index ],
-			currentIndex: index,
-			cached: true
-		})
-
-		// cache nexts
-		this._gifIndexExists( index + 1  ) && this._prefecthAndCacheGif( this.props.gifs[  index + 1 ] )
-		// cache prevs
-		this._gifIndexExists( index - 1  ) && this._prefecthAndCacheGif( this.props.gifs[  index - 1 ] )
-
-	}
-
 	requestGif = ( index ) => {
 
-		const gifExists = this._gifIndexExists( index )
-		
-		this.setState({
-			gif: gifExists ? this.props.gifs[ index ] : null,
-			currentIndex: gifExists ? index:0
+		this.setState({ cached: true })
+
+		var RequestPromise = new Promise(( resolve, reject ) => {
+			
+			if( this._gifIndexExists( index ) ) {
+				resolve( this.props.gifs[ index ], index )
+			}
+			else {
+				reject( null, index )
+			}
 		})
+
+		return RequestPromise;
+	}
+
+	onClickGifRequestHandler = ( index ) => {
 		
-		gifExists && this.startGifSlideShow( index );
+		this.requestGif( index )
+		
+			.then(( gif, index ) => {
+				
+				// console.log( gif );
+				
+				this.setState({
+					gif: gif,
+					currentIndex: index,
+					isLightboxOpen: true
+				})
+			})
+			
+			.catch(( result ) => {
+				console.log( 'No gif' , result );
+			})
 	}
 
 	_gifIndexExists( index ) {
 		return this.props.gifs[ index ] ? true:false
 	}
-
-	_prefecthAndCacheGif( gif ) {
-		const img = new Image()
-		img.src = gif && gif.images.original.url
-
-		gif.cached = true
-
-	}
 	
 	unsetSelectedGif = () => {
 		this.setState({
-			gif: null
+			gif: null,
+			currentIndex: 0
 		})
 	}
 
@@ -75,16 +79,17 @@ export default class GifsLightBoxGallery extends React.Component {
 					gifs={ gifs } 
                     showing={ showing } 
                     loadMeSomeMoreMagic={ loadMeSomeMoreMagic } 
-                    onGifClick={ this.startGifSlideShow } />
+                    onGifClick={ this.onClickGifRequestHandler } />
 				
 				{
-					this.state.cached ?
+					this.state.cached && this.state.isLightboxOpen  ?
 						<LightBoxSlideShow
 							gif={ this.state.gif } 
 							prevSlide={ this.requestGif }
 							nextSlide={ this.requestGif } 
 							index={ this.state.currentIndex } 
 							unsetSelectedGif={ this.unsetSelectedGif }
+
 						/>
 					: 
 					<div></div>

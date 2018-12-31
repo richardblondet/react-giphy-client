@@ -24,9 +24,9 @@ export default class LightBoxContent extends React.Component {
 
 	preloadImage = () => {
 		let img = new Image()
-		img.src = this.props.image
 		img.onload = this.onLoadHandler
 		img.onerror = this.onErrorHandler
+		img.src = this.props.image
 	}
 
 	onErrorHandler = event => {
@@ -46,7 +46,7 @@ export default class LightBoxContent extends React.Component {
 				<div className="modal-gif">
 				
 				{	
-					this.state.isReady ?
+					this.state.isReady && !this.state.error ?
 						<a
 							href={ url } 
 							target="_blank">
